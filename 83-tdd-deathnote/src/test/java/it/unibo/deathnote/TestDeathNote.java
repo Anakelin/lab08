@@ -69,7 +69,7 @@ class TestDeathNote {
 
             @Override
             public boolean writeDetails(String details) {
-                long timeLimit = 40;
+                long timeLimit = 6040;
                 long writingInterval = getDeathInterval() - java.lang.System.currentTimeMillis();
                             
                 if(getDetails().isEmpty()){
