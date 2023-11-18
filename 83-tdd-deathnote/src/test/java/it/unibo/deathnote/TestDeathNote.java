@@ -17,7 +17,8 @@ class TestDeathNote {
     static private String CAUSE_OF_DEATH = "Shot by his father's cognition";
     static private String DEATH_DETAILS = "Inside of his father's palace";
     static private String DEFAUL_CAUSE_OF_DEATH = "Heart Attack";
-    static private int SLEEP_TIME = 100;
+    static private int TOO_LONG_CHANGE_CAUSE = 100;
+    static private int TOO_LONG_CHANGE_DETAILS = 6100;
     
     @BeforeEach
     public void setUp(){
@@ -92,12 +93,12 @@ class TestDeathNote {
         //Test change cause after allowed time
         assertEquals(true, notebook.writeDeathCause(secondCause));
         assertEquals(secondCause,notebook.getDeathCause(secondVictim));
-        Thread.sleep(SLEEP_TIME);
+        Thread.sleep(TOO_LONG_CHANGE_CAUSE);
         assertEquals(false,notebook.writeDeathCause(""));
     }
 
     @Test
-    public void testDeathDetail(){
+    public void testDeathDetail() throws InterruptedException{
         //Test details before name
         try {
             notebook.writeDetails(DEATH_DETAILS);
@@ -109,12 +110,16 @@ class TestDeathNote {
         notebook.writeName(VICTIM_NAME);
         notebook.writeDetails("");
         assertEquals("",notebook.getDeathDetails(VICTIM_NAME));
-        notebook.writeDetails(DEATH_DETAILS);
+        
+        //Test changing details
+        String newDetails = "ran for too long";
+        assertEquals(true, notebook.writeDetails(newDetails));
+        assertEquals(newDetails,notebook.getDetails(notebook.getNamePosition(VICTIM_NAME)));
+
+        String secondVictim = "Boba Bubba";
+        notebook.writeName(secondVictim);
+        Thread.sleep(TOO_LONG_CHANGE_DETAILS);
+        assertEquals(false, notebook.writeDetails(newDetails));
     }
 
-    public static void main(String[] args) {
-        MyDeathNote test = new MyDeathNote();
-        test.writeName(VICTIM_NAME);
-        test.writeDetails(DEATH_DETAILS);
-    }
 }

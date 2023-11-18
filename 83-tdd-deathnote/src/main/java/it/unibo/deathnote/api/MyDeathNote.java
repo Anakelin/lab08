@@ -49,11 +49,22 @@ public class MyDeathNote implements DeathNote{
         }
 
         if(writingInterval <= timeLimit){
-            if(cause.equals("")){
-                setCause();
+            if(getCauseList().size()!=getNameList().size())
+            {
+                if(cause.equals("")){
+                    addCause();
+                }
+                else{
+                    addCause(cause);
+                }
             }
             else{
-                setCause(cause);
+                if(cause.equals("")){
+                    setCause();
+                }
+                else{
+                    setCause(cause);
+                }
             }
             return true;
         }
@@ -72,12 +83,23 @@ public class MyDeathNote implements DeathNote{
             throw new IllegalStateException("We don't have a victim, yet.");
         }
         else{
-            if(writingInterval <= timeLimit){
-                setDetails(details);
-                return true;
+            if(getNameList().size() != getDetailList().size()){
+                if(writingInterval <= timeLimit){
+                    addDetails(details);
+                    return true;
+                }
+                else{
+                    return false;
+                }
             }
             else{
-                return false;
+                if(writingInterval <= timeLimit){
+                    setDetails(details);
+                    return true;
+                }
+                else{
+                    return false;
+                }
             }
         }
 
@@ -148,8 +170,15 @@ public class MyDeathNote implements DeathNote{
         return this.causes.get(index);
     }
 
-    public void setCause(String cause) {
+    public void addCause(String cause){
         this.causes.add(cause);
+    }
+
+    public void addCause(){
+        addCause("Heart Attack");
+    }
+    public void setCause(String cause) {
+        this.causes.set(this.causes.size()-1,cause);
     }
 
     public void setCause() {
@@ -172,7 +201,11 @@ public class MyDeathNote implements DeathNote{
         return this.details.get(index);
     }
 
-    public void setDetails(String details){
+    public void addDetails(String details){
         this.details.add(details);
+    }
+
+    public void setDetails(String details){
+        this.details.set(this.details.size()-1, details);
     }
 }
