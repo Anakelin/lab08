@@ -72,7 +72,7 @@ class TestDeathNote {
                 long timeLimit = 6040;
                 long writingInterval = getDeathInterval() - java.lang.System.currentTimeMillis();
                             
-                if(getDetails().isEmpty()){
+                if(getDetailList().isEmpty()){
                     throw new IllegalStateException("How can we kill if we don't even know how it will go ?");
                 }
                 else if(getNameList().isEmpty()){
@@ -176,7 +176,7 @@ class TestDeathNote {
                 this.deathInterval = deathInterval;
             }
 
-            public List<String> getDetails() {
+            public List<String> getDetailList() {
                 return this.details;
             }
 
@@ -184,7 +184,7 @@ class TestDeathNote {
                 return this.details.get(index);
             }
 
-            public void setDetails(String details) {
+            public void setDetailList(String details) {
                 this.details.add(details);
             }
         };
